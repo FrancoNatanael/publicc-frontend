@@ -13,9 +13,9 @@ export function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground">
             <Sparkles className="h-4 w-4 text-background" />
           </div>
-          <span className="text-lg font-semibold tracking-tight">presentia</span>
+          <span className="text-lg font-semibold tracking-tight">publicc</span>
         </Link>
-        
+
         <nav className="hidden items-center gap-6 md:flex">
           <Link href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Características
@@ -31,10 +31,10 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button variant="ghost" asChild className="hidden sm:inline-flex">
-            <Link href="/login">Iniciar sesión</Link>
+            <Link href="/auth/login">Iniciar sesión</Link>
           </Button>
           <Button asChild>
-            <Link href="/register">Empezar gratis</Link>
+            <Link href="/auth/sign-up">Empezar gratis</Link>
           </Button>
         </div>
       </div>
