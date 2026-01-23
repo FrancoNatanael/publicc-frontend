@@ -14,7 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import Image from "next/image"
 
 export function LoginForm({
   className,
@@ -25,6 +27,13 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,6 +60,11 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
+          {mounted && theme === "dark" ? (
+            <Image src="/icon-white.svg" alt="Logo" width={32} height={32} />
+          ) : (
+            <Image src="/icon.svg" alt="Logo" width={32} height={32} />
+          )}
           <CardTitle className="text-2xl">Iniciar sesión</CardTitle>
           <CardDescription>
             Ingresá tu correo para entrar a tu cuenta
