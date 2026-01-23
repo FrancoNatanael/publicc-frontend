@@ -23,11 +23,11 @@ export function HeroSection() {
 
       <div className="container mx-auto max-w-5xl px-4 py-24 md:py-32">
         <div className="flex flex-col items-center text-center">
-          <Badge variant="secondary" className="mb-6">
+          <Badge variant="default" className="mb-6">
             Tu valor profesional en un solo link
           </Badge>
 
-          <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight drop-shadow-sm md:text-5xl lg:text-6xl text-shadow-sm">
             Convertí tu experiencia en una propuesta clara de valor
           </h1>
 
