@@ -3,14 +3,12 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, FileText, Palette, Zap, Globe, Layers, Sparkles } from "lucide-react"
+import { ArrowRight, FileText, Palette, Zap, Globe, Sparkles } from "lucide-react"
 
 const tags = [
-  { label: "CV moderno", icon: FileText },
   { label: "Diseño minimalista", icon: Palette },
   { label: "Listo en minutos", icon: Zap },
   { label: "Multi-idioma", icon: Globe },
-  { label: "Templates", icon: Layers },
   { label: "Link único", icon: Sparkles },
 ]
 
@@ -22,19 +20,19 @@ export function HeroSection() {
           <div className="h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
         </div>
       </div>
-      
+
       <div className="container mx-auto max-w-5xl px-4 py-24 md:py-32">
         <div className="flex flex-col items-center text-center">
           <Badge variant="secondary" className="mb-6">
-            Tu presentación profesional en un link
+            Tu valor profesional en un solo link
           </Badge>
-          
+
           <h1 className="max-w-3xl text-balance text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-            Creá tu carta de presentación profesional en minutos
+            Convertí tu experiencia en una propuesta clara de valor
           </h1>
-          
+
           <p className="mt-6 max-w-2xl text-pretty text-lg text-muted-foreground md:text-xl">
-            Reemplazá el CV en PDF por una presentación web moderna, fácil de actualizar y compartir. Sin saber diseño ni tecnología.
+            Creá una página profesional que explique qué hacés, por qué importa y qué resultados generás. Sin CVs genéricos ni PDFs estáticos.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-2">
@@ -59,7 +57,7 @@ export function HeroSection() {
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground">
-            Gratis para siempre. Sin tarjeta de crédito.
+            Probalo gratis.
           </p>
         </div>
 
@@ -75,7 +73,7 @@ export function HeroSection() {
                   <div className="h-3 w-3 rounded-full bg-green-500/80" />
                 </div>
                 <div className="flex-1 text-center">
-                  <span className="text-xs text-muted-foreground">presentia.app/juan-perez</span>
+                  <span className="text-xs text-muted-foreground">publicc.app/juan-perez</span>
                 </div>
               </div>
               <div className="p-8 md:p-12">

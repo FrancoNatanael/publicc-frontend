@@ -8,18 +8,18 @@ const steps = [
   },
   {
     number: "02",
-    title: "Completá tu perfil",
-    description: "Un wizard guiado te ayuda a agregar tu información paso a paso.",
+    title: "Definí tu valor",
+    description: "Un wizard guiado te ayuda a explicar qué hacés, para quién y qué impacto generás.",
   },
   {
     number: "03",
-    title: "Elegí tu template",
-    description: "Seleccioná entre nuestros diseños minimalistas y profesionales.",
+    title: "Sumá respaldo real",
+    description: "Agregá links a videos, posts, artículos o proyectos que prueben lo que decís.",
   },
   {
     number: "04",
     title: "Compartí tu link",
-    description: "Tu presentación está lista. Compartila donde quieras.",
+    description: "Tu presentación está lista para enviar por LinkedIn, WhatsApp o email.",
   },
 ]
 
@@ -32,7 +32,7 @@ export function HowItWorksSection() {
             Así de simple
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            En 4 pasos tenés tu presentación profesional lista
+            En 4 pasos tenés tu página de posicionamiento profesional lista
           </p>
         </div>
 

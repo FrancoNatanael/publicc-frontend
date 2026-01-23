@@ -16,7 +16,7 @@ const plans = [
       "1 presentación profesional",
       "1 template",
       "URL con subdominio",
-      "Branding de Presentia",
+      "Branding de publicc",
       "1 idioma",
     ],
     cta: "Empezar gratis",
@@ -58,9 +58,11 @@ export function PricingSection() {
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 md:gap-6 lg:gap-8">
           {plans.map((plan) => (
-            <Card 
-              key={plan.name} 
-              className={`relative ${plan.popular ? "border-primary shadow-lg" : "border-border/50"}`}
+            <Card
+              key={plan.name}
+              className={`relative ${plan.popular ?
+                "border-primary shadow-lg pointer-events-none opacity-50"
+                : "border-border/50 pointer-events-auto"}`}
             >
               {plan.popular && (
                 <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -86,8 +88,8 @@ export function PricingSection() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button 
-                  className="w-full" 
+                <Button
+                  className="w-full"
                   variant={plan.popular ? "default" : "outline"}
                   asChild
                 >

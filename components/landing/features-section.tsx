@@ -7,22 +7,22 @@ const features = [
   {
     icon: Link2,
     title: "Un link único",
-    description: "Tu presentación accesible desde presentia.app/tu-nombre. Fácil de compartir en cualquier lugar.",
+    description: "Tu propuesta profesional accesible desde un solo lugar. Fácil de compartir, imposible de ignorar.",
   },
   {
     icon: Paintbrush,
-    title: "Diseño cuidado",
-    description: "Templates minimalistas y profesionales. Sin necesidad de conocimientos de diseño.",
+    title: "Diseño minimalista",
+    description: "Templates minimalistas que ponen el foco en lo importante: lo que aportás.",
   },
   {
     icon: RefreshCw,
-    title: "Actualización instantánea",
-    description: "Cambiá tu información en segundos. Sin generar nuevos PDFs ni reenviar archivos.",
+    title: "Siempre actualizada",
+    description: "Editá tu propuesta en segundos. Sin reenviar archivos ni generar nuevos PDFs.",
   },
   {
     icon: Globe,
     title: "Multi-idioma",
-    description: "Una presentación, múltiples idiomas. Ideal para oportunidades internacionales.",
+    description: "Una misma presentación, múltiples idiomas. Ideal para procesos internacionales.",
   },
   {
     icon: Share2,
@@ -31,7 +31,7 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Tu información, tu control",
+    title: "Vos decidís el mensaje",
     description: "Decidí qué mostrar y qué no. Tu presentación, tus reglas.",
   },
 ]
@@ -45,7 +45,7 @@ export function FeaturesSection() {
             Todo lo que necesitás para destacar
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Herramientas pensadas para profesionales que quieren verse mejor
+            Herramientas pensadas para comunicar valor, no solo experiencia
           </p>
         </div>
 
