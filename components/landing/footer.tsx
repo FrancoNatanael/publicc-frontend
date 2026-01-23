@@ -2,14 +2,26 @@
 
 import Link from "next/link"
 import Image from "next/image"
-
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 export function Footer() {
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <footer className="border-t py-12">
       <div className="container mx-auto max-w-5xl px-4">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/icon-white.svg" alt="Logo" width={32} height={32} />
+            {mounted && theme === "dark" ? (
+              <Image src="/icon-white.svg" alt="Logo" width={32} height={32} />
+            ) : (
+              <Image src="/icon.svg" alt="Logo" width={32} height={32} />
+            )}
             <span className="text-lg font-semibold tracking-tight">publicc</span>
           </Link>
 
