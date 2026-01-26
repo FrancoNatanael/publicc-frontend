@@ -41,9 +41,9 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          {/* <Button variant="ghost" asChild className="hidden sm:inline-flex">
+          <Button variant="ghost" asChild className="hidden sm:inline-flex">
             <Link href="/auth/login">Iniciar sesión</Link>
-          </Button> */}
+          </Button>
           <Button asChild>
             <Link href="/auth/sign-up">Empezar gratis</Link>
           </Button>

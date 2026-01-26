@@ -98,13 +98,24 @@ export default function RegisterPage() {
               )}
               <CardTitle className="text-2xl">Creá tu cuenta</CardTitle>
               <CardDescription>
-                Empezá a crear tu presentación profesional
+                Empezá a mostrar tu valor
               </CardDescription>
             </CardHeader>
 
             {!isSent ? (
               <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nombre</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Tu nombre"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -128,7 +139,7 @@ export default function RegisterPage() {
                       minLength={6}
                     />
                   </div>
-                  <div className="space-y-2">
+                  {/* <div className="space-y-2">
                     <Label htmlFor="repeatPassword">Repetir contraseña</Label>
                     <Input
                       id="repeatPassword"
@@ -139,7 +150,7 @@ export default function RegisterPage() {
                       required
                       minLength={6}
                     />
-                  </div>
+                  </div> */}
 
                   {error && <p className="text-sm font-medium text-destructive">{error}</p>}
                 </CardContent>
