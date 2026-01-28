@@ -20,7 +20,7 @@ export default async function ProtectedPage() {
   const mockSlug = "franco"; // Si hasProfile fuera true
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-3">
       {hasProfile ? (
         <LinkCard slug={mockSlug} />
       ) : (

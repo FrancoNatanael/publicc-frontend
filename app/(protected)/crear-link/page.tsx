@@ -9,13 +9,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { StepIndicator } from "@/components/wizard/step-indicator";
 import { ArrowLeft, ArrowRight, Save, Link as LinkIcon, Plus, Trash } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { LinkFormData } from "@/features/link/types";
+
 
 export default function CreateLinkPage() {
     const router = useRouter();
     const [step, setStep] = useState(1);
     const totalSteps = 4;
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<LinkFormData>({
+
         slug: "",
         name: "",
         role: "",
