@@ -18,7 +18,6 @@ export default function CreateLinkPage() {
     const totalSteps = 4;
 
     const [formData, setFormData] = useState<LinkFormData>({
-
         slug: "",
         name: "",
         role: "",
@@ -28,11 +27,14 @@ export default function CreateLinkPage() {
             why: "",
             results: ""
         },
-        links: [{ title: "", url: "" }],
+        links: [],
         contact: {
             email: "",
-            bio: ""
-        }
+            bio: "",
+            linkedin: "",
+            twitter: ""
+        },
+        template: "minimal"
     });
 
     const nextStep = () => setStep((prev) => Math.min(prev + 1, totalSteps));
@@ -89,6 +91,7 @@ export default function CreateLinkPage() {
                                             placeholder="tu-nombre"
                                             value={formData.slug}
                                             onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -100,6 +103,7 @@ export default function CreateLinkPage() {
                                         placeholder="Ej. Franco Tomaino"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        required
                                     />
                                 </div>
 
@@ -110,6 +114,7 @@ export default function CreateLinkPage() {
                                         placeholder="Ej. Product Engineer"
                                         value={formData.role}
                                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -130,6 +135,7 @@ export default function CreateLinkPage() {
                                         placeholder="Construyo aplicaciones web escalables..."
                                         value={formData.valueProp.what}
                                         onChange={(e) => setFormData({ ...formData, valueProp: { ...formData.valueProp, what: e.target.value } })}
+                                        required
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -146,6 +152,7 @@ export default function CreateLinkPage() {
                                         placeholder="Porque combino diseño y código para iterar rápido..."
                                         value={formData.valueProp.why}
                                         onChange={(e) => setFormData({ ...formData, valueProp: { ...formData.valueProp, why: e.target.value } })}
+                                        required
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -154,6 +161,7 @@ export default function CreateLinkPage() {
                                         placeholder="+20% conversión en último proyecto..."
                                         value={formData.valueProp.results}
                                         onChange={(e) => setFormData({ ...formData, valueProp: { ...formData.valueProp, results: e.target.value } })}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -188,7 +196,7 @@ export default function CreateLinkPage() {
                                     </div>
                                 ))}
                                 <Button variant="outline" size="sm" onClick={addLink} className="w-full" disabled={formData.links.length >= 3}>
-                                    <Plus className="w-4 h-4 mr-2" /> Agregar otro link
+                                    <Plus className="w-4 h-4 mr-2" /> Agregar link
                                 </Button>
                             </div>
                         </div>
@@ -203,13 +211,24 @@ export default function CreateLinkPage() {
 
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Email Público</Label>
+                                    <Label htmlFor="linkedin">LinkedIn</Label>
                                     <Input
-                                        id="email"
-                                        type="email"
-                                        placeholder="hola@ejemplo.com"
-                                        value={formData.contact.email}
-                                        onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, email: e.target.value } })}
+                                        id="linkedin"
+                                        type="url"
+                                        placeholder="https://linkedin.com/in/your-profile"
+                                        value={formData.contact.linkedin}
+                                        onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, linkedin: e.target.value } })}
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="twitter">Twitter</Label>
+                                    <Input
+                                        id="twitter"
+                                        type="url"
+                                        placeholder="https://twitter.com/your-profile"
+                                        value={formData.contact.twitter}
+                                        onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, twitter: e.target.value } })}
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -218,6 +237,7 @@ export default function CreateLinkPage() {
                                         placeholder="Unas líneas sobre ti..."
                                         value={formData.contact.bio}
                                         onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, bio: e.target.value } })}
+                                        required
                                     />
                                 </div>
                             </div>
