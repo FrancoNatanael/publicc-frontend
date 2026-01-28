@@ -55,7 +55,49 @@ export default function CreateLinkPage() {
         setFormData({ ...formData, links: newLinks });
     };
 
+    const isValidUrl = (url: string) => {
+        try {
+            const parsed = new URL(url.startsWith('http') ? url : `https://${url}`);
+            return parsed.hostname.includes('.');
+        } catch {
+            return false;
+        }
+    };
+
+    const validateStep = (currentStep: number) => {
+        switch (currentStep) {
+            case 1:
+                return (
+                    formData.slug.trim().length > 0 &&
+                    /^[a-z0-9-]+$/.test(formData.slug) &&
+                    formData.name.trim() !== "" &&
+                    formData.role.trim() !== ""
+                );
+            case 2:
+                return (
+                    formData.valueProp.what.trim() !== "" &&
+                    formData.valueProp.why.trim() !== "" &&
+                    formData.valueProp.results.trim() !== ""
+                );
+            case 3:
+                return formData.links.every(link =>
+                    link.title.trim() !== "" &&
+                    link.url.trim() !== "" &&
+                    isValidUrl(link.url)
+                ) || formData.links.length == 0;
+            case 4:
+                return (
+                    formData.contact.linkedin.trim() !== "" &&
+                    isValidUrl(formData.contact.linkedin) &&
+                    formData.contact.bio.trim() !== ""
+                );
+            default:
+                return true;
+        }
+    };
+
     const handleFinish = async () => {
+        if (!validateStep(4)) return;
         // Here we would save to Supabase
         console.log("Saving data:", formData);
         // Simulate delay
@@ -90,10 +132,11 @@ export default function CreateLinkPage() {
                                             id="slug"
                                             placeholder="tu-nombre"
                                             value={formData.slug}
-                                            onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                                            onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') })}
                                             required
                                         />
                                     </div>
+                                    <p className="text-[10px] text-muted-foreground px-1">Solo minúsculas, números y guiones.</p>
                                 </div>
 
                                 <div className="space-y-2">
@@ -156,7 +199,7 @@ export default function CreateLinkPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Resultados <span className="text-muted-foreground">(opcional)</span></Label>
+                                    <Label>Resultados</Label>
                                     <Input
                                         placeholder="+20% conversión en último proyecto..."
                                         value={formData.valueProp.results}
@@ -190,7 +233,7 @@ export default function CreateLinkPage() {
                                                 onChange={(e) => handleLinkChange(index, "url", e.target.value)}
                                             />
                                         </div>
-                                        <Button variant="ghost" size="icon" onClick={() => removeLink(index)} disabled={formData.links.length === 1}>
+                                        <Button variant="ghost" size="icon" onClick={() => removeLink(index)}>
                                             <Trash className="w-4 h-4 text-destructive" />
                                         </Button>
                                     </div>
@@ -250,11 +293,11 @@ export default function CreateLinkPage() {
                         </Button>
 
                         {step < totalSteps ? (
-                            <Button onClick={nextStep}>
+                            <Button onClick={nextStep} disabled={!validateStep(step)}>
                                 Siguiente <ArrowRight className="w-4 h-4 ml-2" />
                             </Button>
                         ) : (
-                            <Button onClick={handleFinish} className="bg-primary text-primary-foreground hover:bg-primary/90">
+                            <Button onClick={handleFinish} disabled={!validateStep(step)} className="bg-primary text-primary-foreground hover:bg-primary/90">
                                 <Save className="w-4 h-4 mr-2" /> Publicar Página
                             </Button>
                         )}
