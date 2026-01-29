@@ -10,12 +10,16 @@ import { StepIndicator } from "@/components/wizard/step-indicator";
 import { ArrowLeft, ArrowRight, Save, Link as LinkIcon, Plus, Trash } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { LinkFormData } from "@/features/link/types";
+import { useFetchLinks } from "@/features/link/useFetchLinks";
+import { useAuth } from "@/context/AuthContext";
 
 
 export default function CreateLinkPage() {
     const router = useRouter();
     const [step, setStep] = useState(1);
     const totalSteps = 4;
+    const { createLink } = useFetchLinks();
+    const { user, loading } = useAuth();
 
     const [formData, setFormData] = useState<LinkFormData>({
         slug: "",
@@ -28,7 +32,7 @@ export default function CreateLinkPage() {
             results: ""
         },
         links: [],
-        contact: {
+        contact_info: {
             email: "",
             bio: "",
             linkedin: "",
@@ -87,9 +91,9 @@ export default function CreateLinkPage() {
                 ) || formData.links.length == 0;
             case 4:
                 return (
-                    formData.contact.linkedin.trim() !== "" &&
-                    isValidUrl(formData.contact.linkedin) &&
-                    formData.contact.bio.trim() !== ""
+                    formData.contact_info.linkedin.trim() !== "" &&
+                    isValidUrl(formData.contact_info.linkedin) &&
+                    formData.contact_info.bio.trim() !== ""
                 );
             default:
                 return true;
@@ -98,10 +102,8 @@ export default function CreateLinkPage() {
 
     const handleFinish = async () => {
         if (!validateStep(4)) return;
-        // Here we would save to Supabase
-        console.log("Saving data:", formData);
-        // Simulate delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await createLink(formData, user!.id);
+
         router.push("/home");
     };
 
@@ -259,8 +261,8 @@ export default function CreateLinkPage() {
                                         id="linkedin"
                                         type="url"
                                         placeholder="https://linkedin.com/in/your-profile"
-                                        value={formData.contact.linkedin}
-                                        onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, linkedin: e.target.value } })}
+                                        value={formData.contact_info.linkedin}
+                                        onChange={(e) => setFormData({ ...formData, contact_info: { ...formData.contact_info, linkedin: e.target.value } })}
                                         required
                                     />
                                 </div>
@@ -270,16 +272,16 @@ export default function CreateLinkPage() {
                                         id="twitter"
                                         type="url"
                                         placeholder="https://twitter.com/your-profile"
-                                        value={formData.contact.twitter}
-                                        onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, twitter: e.target.value } })}
+                                        value={formData.contact_info.twitter}
+                                        onChange={(e) => setFormData({ ...formData, contact_info: { ...formData.contact_info, twitter: e.target.value } })}
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="bio">Bio Corta</Label>
                                     <Textarea
                                         placeholder="Unas líneas sobre ti..."
-                                        value={formData.contact.bio}
-                                        onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, bio: e.target.value } })}
+                                        value={formData.contact_info.bio}
+                                        onChange={(e) => setFormData({ ...formData, contact_info: { ...formData.contact_info, bio: e.target.value } })}
                                         required
                                     />
                                 </div>

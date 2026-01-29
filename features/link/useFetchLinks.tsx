@@ -28,18 +28,54 @@ export function useFetchLinks() {
         setLoading(false);
     };
 
-    const getLinkById = async (id: string) => {
+    const getLinkById = async (userId: string) => {
         setLoading(true);
         setError(null);
 
+        // const { data, error } = await supabase
+        //     .from("profiles")
+        //     .select("*")
+        //     .eq("id", id)
+        //     .single();
+
         const { data, error } = await supabase
             .from("profiles")
-            .select("*")
-            .eq("id", id)
+            .select(`
+            id,
+            user_id,
+            slug,
+            name,
+            role,
+            template,
+            created_at,
+
+            contact_info (
+            id,
+            email,
+            linkedin,
+            twitter,
+            bio
+            ),
+
+            evidence_links (
+            id,
+            title,
+            url
+            ),
+
+            value_props (
+            id,
+            what,
+            who,
+            why,
+            results
+            )
+        `)
+            .eq("user_id", userId)
             .single();
 
         if (error) setError(error.message);
-        else setLink(data);
+        else setLink(data as unknown as ProfileDB);
 
         setLoading(false);
     };
@@ -64,22 +100,19 @@ export function useFetchLinks() {
         setLoading(true);
         setError(null);
 
-        const { data, error } = await supabase
-            .from("profiles")
-            .insert([
-                {
-                    user_id: userId,
-                    slug: linkData.slug,
-                    name: linkData.name,
-                    role: linkData.role,
-                    template: linkData.template,
-                    value_props: linkData.valueProp,
-                    evidence_links: linkData.links,
-                    contact_info: linkData.contact,
-                },
-            ])
-            .select()
-            .single();
+        const { data, error } = await supabase.rpc(
+            'create_profile_with_data',
+            {
+                p_user_id: userId,
+                p_slug: linkData.slug,
+                p_name: linkData.name,
+                p_role: linkData.role,
+                p_template: linkData.template,
+                p_value_prop: linkData.valueProp,
+                p_links: linkData.links,
+                p_contact: linkData.contact_info,
+            }
+        );
 
         if (error) {
             setError(error.message);
@@ -105,7 +138,7 @@ export function useFetchLinks() {
                 template: linkData.template,
                 value_props: linkData.valueProp,
                 evidence_links: linkData.links,
-                contact_info: linkData.contact,
+                contact_info: linkData.contact_info,
             })
             .eq("id", id)
             .select()

@@ -31,7 +31,7 @@ export interface LinkFormData {
     template: ProfileTemplate;
     valueProp: ValueProp;
     links: EvidenceLink[];
-    contact: ContactInfo;
+    contact_info: ContactInfo;
 }
 
 export interface ProfileDB {
