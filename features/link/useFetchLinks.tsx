@@ -28,15 +28,9 @@ export function useFetchLinks() {
         setLoading(false);
     };
 
-    const getLinkById = async (userId: string) => {
+    const getLinkByUserId = async (userId: string) => {
         setLoading(true);
         setError(null);
-
-        // const { data, error } = await supabase
-        //     .from("profiles")
-        //     .select("*")
-        //     .eq("id", id)
-        //     .single();
 
         const { data, error } = await supabase
             .from("profiles")
@@ -75,7 +69,15 @@ export function useFetchLinks() {
             .single();
 
         if (error) setError(error.message);
-        else setLink(data as unknown as ProfileDB);
+        else {
+            const profile = data as any;
+            setLink({
+                ...profile,
+                contact_info: Array.isArray(profile.contact_info) ? profile.contact_info[0] : profile.contact_info,
+                value_props: Array.isArray(profile.value_props) ? profile.value_props[0] : profile.value_props,
+                evidence_links: Array.isArray(profile.evidence_links) ? profile.evidence_links : []
+            } as ProfileDB);
+        }
 
         setLoading(false);
     };
@@ -86,15 +88,55 @@ export function useFetchLinks() {
 
         const { data, error } = await supabase
             .from("profiles")
-            .select("*")
+            .select(`
+            id,
+            user_id,
+            slug,
+            name,
+            role,
+            template,
+            created_at,
+
+            contact_info (
+                id,
+                email,
+                linkedin,
+                twitter,
+                bio
+            ),
+
+            evidence_links (
+                id,
+                title,
+                url
+            ),
+
+            value_props (
+                id,
+                what,
+                who,
+                why,
+                results
+            )
+        `)
             .eq("slug", slug)
             .single();
 
         if (error) setError(error.message);
-        else setLink(data);
+        else {
+            const profile = data as any;
+            setLink({
+                ...profile,
+                contact_info: Array.isArray(profile.contact_info) ? profile.contact_info[0] : profile.contact_info,
+                value_props: Array.isArray(profile.value_props) ? profile.value_props[0] : profile.value_props,
+                evidence_links: Array.isArray(profile.evidence_links) ? profile.evidence_links : []
+            } as ProfileDB);
+        }
 
         setLoading(false);
     };
+
+
 
     const createLink = async (linkData: LinkFormData, userId: string) => {
         setLoading(true);
@@ -174,16 +216,72 @@ export function useFetchLinks() {
         return true;
     };
 
+    const getLinkById = async (id: string) => {
+        setLoading(true);
+        setError(null);
+
+        const { data, error } = await supabase
+            .from("profiles")
+            .select(`
+            id,
+            user_id,
+            slug,
+            name,
+            role,
+            template,
+            created_at,
+
+            contact_info (
+                id,
+                email,
+                linkedin,
+                twitter,
+                bio
+            ),
+
+            evidence_links (
+                id,
+                title,
+                url
+            ),
+
+            value_props (
+                id,
+                what,
+                who,
+                why,
+                results
+            )
+        `)
+            .eq("id", id)
+            .single();
+
+        if (error) setError(error.message);
+        else {
+            const profile = data as any;
+            setLink({
+                ...profile,
+                contact_info: Array.isArray(profile.contact_info) ? profile.contact_info[0] : profile.contact_info,
+                value_props: Array.isArray(profile.value_props) ? profile.value_props[0] : profile.value_props,
+                evidence_links: Array.isArray(profile.evidence_links) ? profile.evidence_links : []
+            } as ProfileDB);
+        }
+
+        setLoading(false);
+    };
+
     return {
         links,
         link,
         loading,
         error,
         getAllLinks,
-        getLinkById,
+        getLinkByUserId,
         getLinkBySlug,
+        getLinkById,
         createLink,
         updateLink,
         deleteLink,
     };
 }
+

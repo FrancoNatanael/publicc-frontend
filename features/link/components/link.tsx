@@ -64,8 +64,21 @@ export function LinkComponent({
                             </div>
                         </div>
                         <div className="flex flex-row gap-2 md:self-end sm:flex-col w-full sm:w-auto">
-                            <Button variant="outline" size="sm" className="w-full md:w-auto">Twitter / X</Button>
-                            <Button variant="outline" size="sm" className="w-full md:w-auto">LinkedIn</Button>
+                            {profile.contact_info?.twitter && (
+                                <a href={profile.contact_info.twitter.startsWith('http') ? profile.contact_info.twitter : `https://twitter.com/${profile.contact_info.twitter}`} target="_blank">
+                                    <Button variant="outline" size="sm" className="w-full md:w-auto">Twitter / X</Button>
+                                </a>
+                            )}
+                            {profile.contact_info?.linkedin && (
+                                <a href={profile.contact_info.linkedin.startsWith('http') ? profile.contact_info.linkedin : `https://linkedin.com/in/${profile.contact_info.linkedin}`} target="_blank">
+                                    <Button variant="outline" size="sm" className="w-full md:w-auto">LinkedIn</Button>
+                                </a>
+                            )}
+                            {profile.contact_info?.email && (
+                                <a href={`mailto:${profile.contact_info.email}`}>
+                                    <Button variant="outline" size="sm" className="w-full md:w-auto">Email</Button>
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -77,7 +90,7 @@ export function LinkComponent({
                             Qué hago
                         </Badge>
                         <h3 className="text-md font-semibold leading-relaxed">
-                            {profile.value_props.what}
+                            {profile.value_props?.what}
                         </h3>
                     </div>
                     <div className="space-y-2">
@@ -85,7 +98,7 @@ export function LinkComponent({
                             Para quién
                         </Badge>
                         <h3 className="text-md font-semibold leading-relaxed">
-                            {profile.value_props.who}
+                            {profile.value_props?.who}
                         </h3>
                     </div>
                     <div className="space-y-2">
@@ -93,7 +106,7 @@ export function LinkComponent({
                             Por qué importa
                         </Badge>
                         <h3 className="text-md font-semibold leading-relaxed">
-                            {profile.value_props.why}
+                            {profile.value_props?.why}
                         </h3>
                     </div>
                     <div className="space-y-2 p-4 bg-muted/30 rounded-lg border border-border/50">
@@ -102,7 +115,7 @@ export function LinkComponent({
                         </Badge>
                         <p className="text-md font-medium flex items-center">
                             <CheckCircle2 className="inline w-5 h-5 text-green-500 mr-2" />
-                            {profile.value_props.results}
+                            {profile.value_props?.results}
                         </p>
                     </div>
                 </div>
@@ -111,22 +124,23 @@ export function LinkComponent({
                 <div className="space-y-6 mt-10">
                     <h2 className="text-2xl font-bold border-b pb-2">Evidencia &amp; Pensamiento</h2>
                     <div className="grid gap-4">
-                        {[
-                            { title: "Cómo escalar Design Systems (Charla)", url: "youtube.com/watch?v=..." },
-                            { title: "El fin del lorem ipsum (Artículo)", url: "medium.com/@juan/..." },
-                            { title: "Caso de estudio: Fintech App", url: "behance.net/..." }
-                        ].map((link, i) => (
-                            <a key={i} href="#" className="block group">
-                                <Card className="hover:shadow-md transition-all hover:border-primary/50 group-hover:bg-accent/5">
-                                    <CardContent className="flex items-center justify-between p-4">
-                                        <span className="font-medium group-hover:text-primary transition-colors">{link.title}</span>
-                                        <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
-                                    </CardContent>
-                                </Card>
-                            </a>
-                        ))}
+                        {profile.evidence_links && profile.evidence_links.length > 0 ? (
+                            profile.evidence_links.map((link, i) => (
+                                <a key={link.id || i} href={link.url.startsWith('http') ? link.url : `https://${link.url}`} target="_blank" className="block group">
+                                    <Card className="hover:shadow-md transition-all hover:border-primary/50 group-hover:bg-accent/5">
+                                        <CardContent className="flex items-center justify-between p-4">
+                                            <span className="font-medium group-hover:text-primary transition-colors">{link.title}</span>
+                                            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+                                        </CardContent>
+                                    </Card>
+                                </a>
+                            ))
+                        ) : (
+                            <p className="text-muted-foreground text-sm italic text-center py-4">No hay links de evidencia todavía.</p>
+                        )}
                     </div>
                 </div>
+                <p className="text-lg font-semibold tracking-tight text-center mt-4 block w-full text-sm border-t pt-4">Publicc © 2026</p>
             </div>
         </div>
     );

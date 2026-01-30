@@ -6,10 +6,13 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import Image from "next/image"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
+import { useAuth } from "@/context/AuthContext"
+import { UserMenu } from "../dashboard/user-menu"
 
 export function Navbar() {
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const { user } = useAuth();
 
   useEffect(() => {
     setMounted(true)
@@ -39,15 +42,26 @@ export function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <Button variant="ghost" asChild className="hidden sm:inline-flex">
-            <Link href="/auth/login">Iniciar sesión</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/auth/sign-up">Empezar gratis</Link>
-          </Button>
-        </div>
+        {
+          !user && (
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" asChild className="hidden sm:inline-flex">
+                <Link href="/auth/login">Iniciar sesión</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/auth/sign-up">Empezar gratis</Link>
+              </Button>
+            </div>
+          )
+        }
+
+        {
+          user && (
+            <div className="flex items-center gap-2">
+              <UserMenu />
+            </div>
+          )
+        }
       </div>
     </header>
   )

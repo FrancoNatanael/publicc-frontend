@@ -5,6 +5,7 @@ export type ProfileTemplate =
     | 'timeline';
 
 export interface ValueProp {
+    id?: string;
     what: string;
     who: string;
     why: string;
@@ -12,11 +13,13 @@ export interface ValueProp {
 }
 
 export interface EvidenceLink {
+    id?: string;
     title: string;
     url: string;
 }
 
 export interface ContactInfo {
+    id?: string;
     email: string;
     linkedin: string;
     twitter: string;
