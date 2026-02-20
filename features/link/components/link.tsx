@@ -85,7 +85,7 @@ export function LinkComponent({
 
                 {/* 4 Value Blocks */}
                 <div className="grid gap-8 md:grid-cols-2 mb-16 mt-4">
-                    <div className="space-y-2">
+                    <div className="space-y-2 border-gray-200 border rounded-lg p-4">
                         <Badge variant="outline" className="mb-2 uppercase tracking-widest text-xs text-muted-foreground">
                             Qué hago
                         </Badge>
@@ -93,7 +93,7 @@ export function LinkComponent({
                             {profile.value_props?.what}
                         </h3>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 border-gray-200 border rounded-lg p-4">
                         <Badge variant="outline" className="mb-2 uppercase tracking-widest text-xs text-muted-foreground">
                             Para quién
                         </Badge>
@@ -101,7 +101,7 @@ export function LinkComponent({
                             {profile.value_props?.who}
                         </h3>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 border-gray-200 border rounded-lg p-4">
                         <Badge variant="outline" className="mb-2 uppercase tracking-widest text-xs text-muted-foreground">
                             Por qué importa
                         </Badge>
@@ -109,12 +109,12 @@ export function LinkComponent({
                             {profile.value_props?.why}
                         </h3>
                     </div>
-                    <div className="space-y-2 p-4 bg-muted/30 rounded-lg border border-border/50">
+                    <div className="space-y-2 p-4 bg-muted/30 rounded-lg border border-primary bg-primary/10">
                         <Badge variant="outline" className="mb-2 uppercase tracking-widest text-xs text-muted-foreground">
                             Resultados
                         </Badge>
                         <p className="text-md font-medium flex items-center">
-                            <CheckCircle2 className="inline w-5 h-5 text-green-500 mr-2" />
+                            <CheckCircle2 className="inline w-5 h-5 text-primary mr-2" />
                             {profile.value_props?.results}
                         </p>
                     </div>
